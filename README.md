@@ -59,7 +59,7 @@ This blueprint allows a zero manual touch deployemnt of a spoke environment. THe
 4. Change the basic settings according to your ```Region``` of choice and for Managed Service Identity select ```User assigned``` as seen below:</p>
    ![Assign Demo1](media/assign_blueprint1.gif)
    </p>
-   Note: Change the first field ```Subscription``` accordingly</p>
+   Note: Change the first field "Subscription" accordingly (if needed)</p>
 5. Fill in the central ```Blueprint Parameter``` as needed. These parameters are used by multiple artifacts to and are therefore "Global": </p>
    ![Assign Demo2](media/Assignment2.JPG)
 6. Fill in the ```Artifact Parameter``` as needed. See the naming pattern below:</p>
