@@ -3,9 +3,9 @@ This blueprint creates a fully functional spoke landing zone that can be used by
 
 ## How do I import the blueprint?
 
-1. Download the repository as a zip file
+1. Download the repository as a zip file:</p>
    ![Download Demo](media/download_repo.gif)
-2. Upload zip file via the CloudShell
+2. Upload zip file via the Azure CloudShell:</p>
    ![Upload Demo](media/upload_zipfile.gif)
 3. Expand the zipfile using Powershell:</p>
    ```Expand-Archive -Path AzureSpokeBlueprint-master.zip -DestinationPath AzureSpokeBlueprint -force```</p>
