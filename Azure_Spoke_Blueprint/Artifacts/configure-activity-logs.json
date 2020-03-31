@@ -1,8 +1,8 @@
 {
   "kind": "template",
   "properties": {
-    "displayName": "Send Subscription Activity Logs to Log Analytics",
-    "description": "Send Subscription Activity Logs to Log Analytics",
+    "displayName": "Send Subscription Activity Logs to central Log Analytics",
+    "description": "Send Subscription Activity Logs to central Log Analytics",
     "dependsOn": [
       "deploy-log-diag"
     ],
@@ -23,6 +23,14 @@
           }
         }
       },
+      "globalworkspaceSubscriptionID": {
+          "type": "string",
+          "defaultValue": "00000000-0000-0000-0000-000000000000",
+          "allowedValues": [],
+          "metadata": {
+            "description": "Subscription ID where the central Log Analytics workspace is hosted"
+          }
+        },
       "variables": {
         "apiVersions": {
           "diagnosticSettings": "2017-05-01-preview"
@@ -35,7 +43,7 @@
           "apiVersion": "[variables('apiVersions').diagnosticSettings]",
           "location": "Global",
           "properties": {
-            "workspaceId": "[concat(subscription().id,'/resourceGroups/',parameters('globalworkspaceRgName'),'/providers/Microsoft.OperationalInsights/workspaces/',parameters('globalworkspaceName'))]",
+            "workspaceId": "[concat('/subscription/',parameters('globalworkspaceSubscriptionID'),'/resourceGroups/',parameters('globalworkspaceRgName'),'/providers/Microsoft.OperationalInsights/workspaces/',parameters('globalworkspaceName'))]",
             "logs": [
               {
                 "category": "Administrative",
@@ -80,6 +88,9 @@
       },
       "globalworkspaceName": {
         "value": "[parameters('azureSecurityCentertemplate_globalworkspaceName')]"
+      },
+      "globalworkspaceSubscriptionID":{
+        "value":"[parameters('azureSecurityCentertemplate_globalworkspaceSubscriptionID')]"
       }
     }
   }
