@@ -293,7 +293,7 @@
         "value": "[parameters('azureSecurityCentertemplate_globalworkspaceRgName')]"
       },
       "globalworkspaceSubscriptionID":{
-        "value":"[parameters('azureSecurityCentertemplate_globalworkspaceSubscription')]"
+        "value":"[parameters('azureSecurityCentertemplate_globalworkspaceSubscriptionID')]"
       },
       "autoProvisionSetting": {
         "value": "On"
