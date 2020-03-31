@@ -175,7 +175,7 @@
           "name": "default",
           "properties": {
             "scope": "[subscription().id]",
-            "workspaceId": "[concat('/subscription/',parameters('globalworkspaceSubscriptionID'),'/resourceGroups/',parameters('globalworkspaceRgName'),'/providers/Microsoft.OperationalInsights/workspaces/',parameters('globalworkspaceName'))]"
+            "workspaceId": "[concat('/subscriptions/',parameters('globalworkspaceSubscriptionID'),'/resourceGroups/',parameters('globalworkspaceRgName'),'/providers/Microsoft.OperationalInsights/workspaces/',parameters('globalworkspaceName'))]"
           }
         },
         {
