@@ -27,12 +27,11 @@ This blueprint allows a zero manual touch deployemnt of a spoke environment. THe
 ### Configuration of the following Security Settings:
  
 ### Highlights: 
-- Cross Subscription aware: 
-- Cross Subscription VNet Peering to the HUB
-- Create a connection to a central Log Analytics workspace to store ```Activity Logs``` and ```Security Center Data Collection Logs```
+- Cross Subscription aware:
+  - Cross Subscription VNet Peering for advanced Hub-Spoke scenarios
+  - Cross Subscription connection to a central Log Analytics workspace to store ```Activity Logs``` and ```Security Center Data Collection Logs```
 - Roll out of Azure Resource Optimization (ARO) Toolkit in Azure Automation (Developed by CSEO)
-- Deploy all agents for Logging and monitoring that are available
-- 
+- Deploy all available agents for Logging and Monitoring 
 
 ## Prerequisites 
 - An Azure ```Hub-Subscription``` that hosts the a Hub-VNet and a region central Log Analytics workspace
@@ -69,5 +68,5 @@ This blueprint allows a zero manual touch deployemnt of a spoke environment. THe
 - Azure Recovery Services Vault: ```CompanyPrefix```-core-001-vault
 - Azure VNet: ```CompanyPrefix```-core-001-vnet
 - Azure Subnet: ```CompanyPrefix```-core-001-subnet
-- Azure Automation Account: ```UniqueString```-aa-automation
-1.  Click ```Assign``` to assign the blueprint and begin to bootstrap the ```Spoke-Subscription```
+- Azure Automation Account: ```UniqueString```-aa-automation</p>
+7.  Click ```Assign``` to assign the blueprint and begin to bootstrap the ```Spoke-Subscription```
