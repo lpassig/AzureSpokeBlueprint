@@ -10,7 +10,7 @@
           "displayName": "Central Workspace Name (Azure Security Center Configuration)",
           "description": "Name of the central Log Analytics workspace that stores security event and data collected by Azure Security Center"
         },
-        "defaultValue": "lennart-core-001-log",
+        "defaultValue": "company-central-log",
         "allowedValues": []
       },
       "azureSecurityCentertemplate_globalworkspaceRgName": {
@@ -19,7 +19,7 @@
           "displayName": "Central Workspace Resource Group Name (Azure Security Center Configuration)",
           "description": "Name of the resource group where the central log analytics workspace belongs to"
         },
-        "defaultValue": "ccoe-core-rg",
+        "defaultValue": "ccoe-central-rg",
         "allowedValues": []
       },
       "azureSecurityCentertemplate_globalworkspaceSubscriptionID": {
@@ -28,7 +28,7 @@
           "displayName": "Subscription ID of Central Workspace (Azure Security Center Configuration)",
           "description": "Subscription ID where the central Log Analytics workspace is hosted"
         },
-        "defaultValue": "ccoe-core-rg",
+        "defaultValue": "00000000-0000-0000-0000-000000000000",
         "allowedValues": []
       },
       "azureSecurityCentertemplate_ascOwnerEmail": {
