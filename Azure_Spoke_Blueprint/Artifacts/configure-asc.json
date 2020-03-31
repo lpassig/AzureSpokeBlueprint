@@ -26,12 +26,12 @@
             "description": "Name of the resource group where the central log analytics workspace belongs to"
           }
         },
-        "globalworkspaceSubscription": {
+        "globalworkspaceSubscriptionID": {
           "type": "string",
           "defaultValue": "00000000-0000-0000-0000-000000000000",
           "allowedValues": [],
           "metadata": {
-            "description": "Subscription ID  where the central Log Analytics workspace is hosted"
+            "description": "Subscription ID where the central Log Analytics workspace is hosted"
           }
         },
         "autoProvisionSetting": {
@@ -175,7 +175,7 @@
           "name": "default",
           "properties": {
             "scope": "[subscription().id]",
-            "workspaceId": "[concat('/subscription/',parameters('globalworkspaceSubscription'),/resourceGroups/',parameters('globalworkspaceRgName'),'/providers/Microsoft.OperationalInsights/workspaces/',parameters('globalworkspaceName'))]"
+            "workspaceId": "[concat('/subscription/',parameters('globalworkspaceSubscriptionID'),/resourceGroups/',parameters('globalworkspaceRgName'),'/providers/Microsoft.OperationalInsights/workspaces/',parameters('globalworkspaceName'))]"
           }
         },
         {
@@ -291,6 +291,9 @@
       },
       "globalworkspaceRgName": {
         "value": "[parameters('azureSecurityCentertemplate_globalworkspaceRgName')]"
+      },
+      "globalworkspaceSubscriptionID":{
+        "value":"[parameters('azureSecurityCentertemplate_globalworkspaceSubscription')]"
       },
       "autoProvisionSetting": {
         "value": "On"
