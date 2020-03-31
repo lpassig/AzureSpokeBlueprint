@@ -16,14 +16,7 @@
             "description": "The resource group name of the log analytics workspace"
           }
         },
-        "globalworkspaceName": {
-          "type": "string",
-          "metadata": {
-            "description": "The name of the log analytics workspace"
-          }
-        }
-      },
-      "globalworkspaceSubscriptionID": {
+        "globalworkspaceSubscriptionID": {
           "type": "string",
           "defaultValue": "00000000-0000-0000-0000-000000000000",
           "allowedValues": [],
@@ -31,6 +24,13 @@
             "description": "Subscription ID where the central Log Analytics workspace is hosted"
           }
         },
+        "globalworkspaceName": {
+          "type": "string",
+          "metadata": {
+            "description": "The name of the log analytics workspace"
+          }
+        }
+      },
       "variables": {
         "apiVersions": {
           "diagnosticSettings": "2017-05-01-preview"
