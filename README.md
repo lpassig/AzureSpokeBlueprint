@@ -7,7 +7,7 @@ This blueprint creates a fully functional spoke landing zone that can be used by
    ![Download Demo](media/download_repo.gif)
 2. Upload zip file via the Azure CloudShell:</p>
    ![Upload Demo](media/upload_zipfile.gif)
-3. Expand the zipfile using Powershell:</p>
+3. Expand the zip file using Powershell:</p>
    ```Expand-Archive -Path AzureSpokeBlueprint-master.zip -DestinationPath AzureSpokeBlueprint -force```</p>
 4. Change directory into the created folder:</p>
    ```cd ./AzureSpokeBlueprint/AzureSpokeBlueprint-master```</p>
