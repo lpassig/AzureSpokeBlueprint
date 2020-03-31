@@ -1,0 +1,9 @@
+{
+  "kind": "policyAssignment",
+  "properties": {
+    "displayName": "Deploy prerequisites to enable Guest Configuration Policy on Windows VMs.",
+    "dependsOn": [],
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0ecd903d-91e7-4726-83d3-a229d7f2e293",
+    "parameters": {}
+  }
+}

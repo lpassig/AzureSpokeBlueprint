@@ -1,0 +1,13 @@
+{
+  "kind": "policyAssignment",
+  "properties": {
+    "displayName": "Deploy Advanced Threat Protection for Cosmos DB Accounts",
+    "dependsOn": [],
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b5f04e03-92a3-4b09-9410-2cc5e5047656",
+    "parameters": {
+      "effect": {
+        "value": "DeployIfNotExists"
+      }
+    }
+  }
+}

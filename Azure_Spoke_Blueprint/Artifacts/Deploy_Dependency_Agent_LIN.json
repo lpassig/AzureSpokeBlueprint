@@ -1,0 +1,13 @@
+{
+  "kind": "policyAssignment",
+  "properties": {
+    "displayName": "[Preview]: Deploy Dependency Agent for Linux VMs",
+    "dependsOn": [],
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4da21710-ce6f-4e06-8cdb-5cc4c93ffbee",
+    "parameters": {
+      "listOfImageIdToInclude": {
+        "value": []
+      }
+    }
+  }
+}

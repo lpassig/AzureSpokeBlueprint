@@ -1,0 +1,129 @@
+{
+  "kind": "template",
+  "properties": {
+    "displayName": "Deploy Key Vault",
+    "description": "Deploy Key Vault for Secrets, Certs & Keys",
+    "dependsOn": [],
+    "template": {
+      "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "Organization_Name": {
+          "type": "string"
+        },
+        "KV-AccessPolicy_ObjectID": {
+          "type": "string"
+        },
+        "Spoke_Number": {
+          "type": "string",
+          "defaultValue": "001",
+          "metadata": {
+            "displayName": "Spoke_Number",
+            "description": "What number does the  current spoke have that your are roling out?"
+          }
+        }
+      },
+      "variables": {
+        "deployment-prefix": "[concat(parameters('Organization_Name'), '-core-')]",
+        "key-vault-name": "[concat(variables('deployment-prefix'), parameters('Spoke_Number'), '-kv')]"
+      },
+      "resources": [
+        {
+          "type": "Microsoft.KeyVault/vaults",
+          "name": "[variables('key-vault-name')]",
+          "apiVersion": "2016-10-01",
+          "location": "[resourceGroup().location]",
+          "tags": {
+            "displayName": "KeyVault"
+          },
+          "properties": {
+            "createMode": "default",
+            "enabledForDeployment": true,
+            "enabledForDiskEncryption": true,
+            "enabledForTemplateDeployment": true,
+            "tenantId": "[subscription().tenantId]",
+            "sku": {
+              "name": "premium",
+              "family": "A"
+            },
+            "networkAcls": {
+              "defaultAction": "Allow",
+              "bypass": "AzureServices",
+              "virtualNetworkRules": [],
+              "ipRules": []
+            },
+            "accessPolicies": [
+              {
+                "objectId": "[parameters('KV-AccessPolicy_ObjectID')]",
+                "tenantId": "[subscription().tenantId]",
+                "permissions": {
+                  "keys": [
+                    "get",
+                    "list",
+                    "update",
+                    "create",
+                    "import",
+                    "delete",
+                    "recover",
+                    "backup",
+                    "restore"
+                  ],
+                  "secrets": [
+                    "get",
+                    "list",
+                    "set",
+                    "delete",
+                    "recover",
+                    "backup",
+                    "restore"
+                  ],
+                  "certificates": [
+                    "get",
+                    "list",
+                    "update",
+                    "create",
+                    "import",
+                    "delete",
+                    "recover",
+                    "deleteissuers",
+                    "recover",
+                    "managecontacts",
+                    "manageissuers",
+                    "getissuers",
+                    "listissuers",
+                    "setissuers"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Microsoft.KeyVault/vaults/providers/locks",
+          "apiVersion": "2016-09-01",
+          "name": "[concat(variables('key-vault-name'), '/Microsoft.Authorization/keyVaultDoNotDelete')]",
+          "dependsOn": [
+            "[concat('Microsoft.KeyVault/vaults/', variables('key-vault-name'))]"
+          ],
+          "comments": "Resource lock on key vault",
+          "properties": {
+            "level": "CannotDelete"
+          }
+        }
+      ],
+      "outputs": {}
+    },
+    "resourceGroup": "ccoe-core-rg",
+    "parameters": {
+      "Organization_Name": {
+        "value": "[parameters('OrganizationName')]"
+      },
+      "KV-AccessPolicy_ObjectID": {
+        "value": "[parameters('deployKeyVault_KV-AccessPolicy_ObjectID')]"
+      },
+      "Spoke_Number": {
+        "value": "[parameters('SpokeNumber')]"
+      }
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "kind": "template",
+  "properties": {
+    "displayName": "Configure VNet Peering",
+    "description": "Configure VNet Peering",
+    "dependsOn": [
+      "deploy-vnet"
+    ],
+    "template": {
+      "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "Organization_Name": {
+          "type": "string",
+          "metadata": {
+            "displayName": "Prefix for the resource names deployed in this template"
+          }
+        },
+        "hubSubscriptionId": {
+          "type": "string",
+          "defaultValue": "myid"
+        },
+        "hubResourceGroup": {
+          "type": "string",
+          "defaultValue": "myhubResourceGroup"
+        },
+        "hubVnetName": {
+          "type": "string",
+          "defaultValue": "myhubvnet"
+        },
+        "Spoke_Number": {
+          "type": "string",
+          "defaultValue": "001",
+          "metadata": {
+            "displayName": "Spoke_Number",
+            "description": "What number does the  current spoke have that your are rolling out?"
+          }
+        }
+      },
+      "variables": {
+        "SpokeVNetName": "[concat(parameters('Organization_Name'), '-core-', parameters('Spoke_Number'), '-vnet')]",
+        "vNet1tovNet2PeeringName": "[concat(variables('SpokeVNetName'), '/spoke-to-hub')]",
+        "vNet2tovNet1PeeringName": "[concat('hub', '-', variables('SpokeVNetName'))]",
+        "hubSubscriptionId": "[parameters('hubSubscriptionId')]",
+        "hubResourceGroupName": "[parameters('hubResourceGroup')]",
+        "hubVnetName": "[parameters('hubVnetName')]",
+        "currentSub": "[subscription().subscriptionId]",
+        "currentRg": "[resourceGroup().name]"
+      },
+      "resources": [
+        {
+          "apiVersion": "2016-06-01",
+          "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+          "name": "[variables('vNet1tovNet2PeeringName')]",
+          "location": "[resourceGroup().location]",
+          "dependsOn": [],
+          "comments": "This is the peering from vNet 1 to vNet 2",
+          "properties": {
+            "allowVirtualNetworkAccess": "true",
+            "allowForwardedTraffic": "false",
+            "allowGatewayTransit": "false",
+            "useRemoteGateways": "false",
+            "remoteVirtualNetwork": {
+              "id": "[resourceId(variables('hubSubscriptionId'), variables('hubResourceGroupName'), 'Microsoft.Network/virtualNetworks', variables('hubvNetName'))]"
+            }
+          }
+        },
+        {
+          "apiVersion": "2017-05-10",
+          "name": "nestedTemplate",
+          "type": "Microsoft.Resources/deployments",
+          "resourceGroup": "[variables('hubResourceGroupName')]",
+          "subscriptionId": "[variables('hubSubscriptionId')]",
+          "dependsOn": [],
+          "properties": {
+            "mode": "Incremental",
+            "template": {
+              "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+              "contentVersion": "1.0.0.0",
+              "resources": [
+                {
+                  "apiVersion": "2016-06-01",
+                  "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+                  "name": "[concat(variables('hubvNetName'),'/', variables('vNet2tovNet1PeeringName'))]",
+                  "location": "[resourceGroup().location]",
+                  "comments": "This is the peering from Hub to Spoke",
+                  "properties": {
+                    "allowVirtualNetworkAccess": "true",
+                    "allowForwardedTraffic": "false",
+                    "allowGatewayTransit": "false",
+                    "useRemoteGateways": "false",
+                    "remoteVirtualNetwork": {
+                      "id": "[resourceId(variables('currentSub'), variables('currentRg'), 'Microsoft.Network/virtualNetworks', variables('SpokeVNetName'))]"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "resourceGroup": "ccoe-core-rg",
+    "parameters": {
+      "hubSubscriptionId": {
+        "value": "[parameters('configureVNetPeering_hubSubscriptionId')]"
+      },
+      "hubResourceGroup": {
+        "value": "[parameters('configureVNetPeering_hubResourceGroup')]"
+      },
+      "hubVnetName": {
+        "value": "[parameters('configureVNetPeering_hubVnetName')]"
+      },
+      "Organization_Name": {
+        "value": "[parameters('OrganizationName')]"
+      },
+      "Spoke_Number": {
+        "value": "[parameters('SpokeNumber')]"
+      }
+    }
+  }
+}

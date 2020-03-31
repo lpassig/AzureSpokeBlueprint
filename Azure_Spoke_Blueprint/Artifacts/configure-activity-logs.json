@@ -1,0 +1,86 @@
+{
+  "kind": "template",
+  "properties": {
+    "displayName": "Send Subscription Activity Logs to Log Analytics",
+    "description": "Send Subscription Activity Logs to Log Analytics",
+    "dependsOn": [
+      "deploy-log-diag"
+    ],
+    "template": {
+      "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "globalworkspaceRgName": {
+          "type": "string",
+          "metadata": {
+            "description": "The resource group name of the log analytics workspace"
+          }
+        },
+        "globalworkspaceName": {
+          "type": "string",
+          "metadata": {
+            "description": "The name of the log analytics workspace"
+          }
+        }
+      },
+      "variables": {
+        "apiVersions": {
+          "diagnosticSettings": "2017-05-01-preview"
+        }
+      },
+      "resources": [
+        {
+          "name": "[uniqueString(subscription().subscriptionId)]",
+          "type": "Microsoft.Insights/diagnosticSettings",
+          "apiVersion": "[variables('apiVersions').diagnosticSettings]",
+          "location": "Global",
+          "properties": {
+            "workspaceId": "[concat(subscription().id,'/resourceGroups/',parameters('globalworkspaceRgName'),'/providers/Microsoft.OperationalInsights/workspaces/',parameters('globalworkspaceName'))]",
+            "logs": [
+              {
+                "category": "Administrative",
+                "enabled": true
+              },
+              {
+                "category": "Security",
+                "enabled": true
+              },
+              {
+                "category": "ServiceHealth",
+                "enabled": true
+              },
+              {
+                "category": "Alert",
+                "enabled": true
+              },
+              {
+                "category": "Recommendation",
+                "enabled": true
+              },
+              {
+                "category": "Policy",
+                "enabled": true
+              },
+              {
+                "category": "Autoscale",
+                "enabled": true
+              },
+              {
+                "category": "ResourceHealth",
+                "enabled": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "parameters": {
+      "globalworkspaceRgName": {
+        "value": "[parameters('azureSecurityCentertemplate_globalworkspaceRgName')]"
+      },
+      "globalworkspaceName": {
+        "value": "[parameters('azureSecurityCentertemplate_globalworkspaceName')]"
+      }
+    }
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "properties": {
+    "displayName": "Azure Spoke Blueprint 0.1",
+    "description": "Azure Spoke Blueprint 0.1 Last Edited: 03/31/20",
+    "targetScope": "subscription",
+    "parameters": {
+      "azureSecurityCentertemplate_globalworkspaceName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Central Workspace Name (Azure Security Center Configuration)",
+          "description": "Name of the central Log Analytics workspace that stores security event and data collected by Azure Security Center"
+        },
+        "defaultValue": "lennart-core-001-log",
+        "allowedValues": []
+      },
+      "azureSecurityCentertemplate_globalworkspaceRgName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Central Workspace Resource Group Name (Azure Security Center Configuration)",
+          "description": "Name of the resource group where the central log analytics workspace belongs to"
+        },
+        "defaultValue": "ccoe-core-rg",
+        "allowedValues": []
+      },
+      "azureSecurityCentertemplate_ascOwnerEmail": {
+        "type": "string",
+        "metadata": {
+          "displayName": "ASC Owner Email (Azure Security Center Configuration)",
+          "description": "Email of the administrator who should be notified about Azure Security Center alert"
+        },
+        "allowedValues": []
+      },
+      "azureSecurityCentertemplate_ascOwnerContact": {
+        "type": "string",
+        "metadata": {
+          "displayName": "ASC Owner PhoneNumber (Azure Security Center Configuration)",
+          "description": "Phone number of the administrator should be notified about Azure Security Center alert"
+        },
+        "allowedValues": []
+      },
+      "[Preview]:DeployLogAnalyticsAgentforLinuxVMs_logAnalytics": {
+        "type": "string",
+        "metadata": {
+          "displayName": "[Preview]: Log Analytics workspace",
+          "strongType": "omsWorkspace"
+        },
+        "allowedValues": []
+      },
+      "[Preview]:DeployLogAnalyticsAgentforWindowsVMs_logAnalytics": {
+        "type": "string",
+        "metadata": {
+          "displayName": "[Preview]: Log Analytics workspace",
+          "strongType": "omsWorkspace"
+        },
+        "allowedValues": []
+      },
+      "deployVNetandonesubnet_addressSpaceVnet": {
+        "type": "string",
+        "metadata": {
+          "displayName": "addressSpaceVnet (Deploy VNet and one subnet)"
+        },
+        "defaultValue": "10.0.0.0/16",
+        "allowedValues": []
+      },
+      "deployVNetandonesubnet_addressSpaceSubnet": {
+        "type": "string",
+        "metadata": {
+          "displayName": "addressSpaceSubnet (Deploy VNet and one subnet)"
+        },
+        "defaultValue": "10.0.0.0/24",
+        "allowedValues": []
+      },
+      "deployKeyVault_KV-AccessPolicy_ObjectID": {
+        "type": "string",
+        "metadata": {
+          "displayName": "AAD ObjectID for Key Vault Access Policy (Data Plane)",
+          "description": "ObjectID"
+        },
+        "allowedValues": []
+      },
+      "deployAzureResourceOptimization(ARO)Toolkit(AzureAutomationAccount)__artifactsLocationSasToken": {
+        "type": "string",
+        "metadata": {
+          "displayName": "OPTIONAL: sasToken required to access Artifacts Location (Azure Resource Optimization (ARO))",
+          "description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated"
+        },
+        "defaultValue": "",
+        "allowedValues": []
+      },
+      "configureVNetPeering_hubSubscriptionId": {
+        "type": "string",
+        "metadata": {
+          "displayName": "SubscriptionId of the hub/shared services subscription",
+          "description": "Needed to configure VNet Peering"
+        },
+        "defaultValue": "mysubscriptionid",
+        "allowedValues": []
+      },
+      "configureVNetPeering_hubResourceGroup": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Resource Group name of the hub VNet resides in",
+          "description": "Needed to configure VNet peering"
+        },
+        "defaultValue": "myhubResourceGroup",
+        "allowedValues": []
+      },
+      "configureVNetPeering_hubVnetName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "hubVnetName (Configure VNet peering)"
+        },
+        "defaultValue": "myhubvnet",
+        "allowedValues": []
+      },
+      "[Usergrouporapplicationname]:Contributor_RoleAssignmentName": {
+        "type": "array",
+        "metadata": {
+          "displayName": "[User group or application name] ([User group or application name] : Contributor)",
+          "strongType": "PrincipalId"
+        }
+      },
+      "OrganizationName": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Enter your organization name (e.g. Contoso), must be unique",
+          "description": "Organization Name"
+        },
+        "defaultValue": "company"
+      },
+      "AzureRegion": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Select the Azure Region to deploy the Resources",
+          "description": "AzureRegion",
+          "strongType": "location"
+        },
+        "defaultValue": "westeurope"
+      }, 
+      "SpokeNumber": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Enter number of the current spoke that your are rolling out",
+          "description": "SpokeNumber"
+        },
+        "defaultValue": "001"
+      }
+    },
+    "resourceGroups": {
+      "Application-RG": {
+        "name": "[concat(parameters('OrganizationName'),'-app001-rg')]",
+        "location": "[parameters('AzureRegion')]",
+        "metadata": {
+          "displayName": "Resource Group for App 001"
+        },
+        "dependsOn": []
+      },
+      "ccoe-core-rg": {
+        "name": "ccoe-core-rg",
+        "location": "[parameters('AzureRegion')]",
+        "metadata": {
+          "displayName": "Resource Group for Core Services"
+        },
+        "dependsOn": [],
+        "tags": {
+          "company_costcenter": "0001",
+          "company_managedby": "CCoE",
+          "company_compliance": "None",
+          "company_app_name": "CoreServices",
+          "company_environment": "prod",
+          "company_criticality": "high",
+          "company_confidentiality": "low",
+          "company_reviewdate": "tbd",
+          "company_maintenancewindow": "tbd",
+          "company_external_partner": "tbd"
+        }
+      },
+      "NetworkWatcherRG": {
+        "name": "NetworkWatcherRG",
+        "location": "[parameters('AzureRegion')]",
+        "metadata": {
+          "displayName": "Resource Group for Network Watcher"
+        },
+        "dependsOn": []
+      }
+    }
+  }
+}

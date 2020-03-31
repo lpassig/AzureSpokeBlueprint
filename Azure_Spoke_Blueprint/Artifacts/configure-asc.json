@@ -1,0 +1,328 @@
+{
+  "kind": "template",
+  "properties": {
+    "displayName": "Configure Azure Security Center",
+    "description": "Deploying Azure Security Center ARM template; Set Pricing, Alterting and Central Log Analytics Account (User Managed MSI needed for Central Log Analytics Account)",
+    "dependsOn": [
+      "deploy-log-diag"
+    ],
+    "template": {
+      "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "globalworkspaceName": {
+          "type": "string",
+          "defaultValue": "azsec-shared-workspace",
+          "allowedValues": [],
+          "metadata": {
+            "description": "Name of the central Log Analytics workspace that stores security event and data collected by Azure Security Center"
+          }
+        },
+        "globalworkspaceRgName": {
+          "type": "string",
+          "defaultValue": "azsec-corporate-rg",
+          "allowedValues": [],
+          "metadata": {
+            "description": "Name of the resource group where the central log analytics workspace belongs to"
+          }
+        },
+        "autoProvisionSetting": {
+          "type": "string",
+          "defaultValue": "On",
+          "allowedValues": [
+            "On",
+            "Off"
+          ],
+          "metadata": {
+            "description": "Specify whether Auto Provisoning is turned on or off"
+          }
+        },
+        "ascOwnerEmail": {
+          "type": "string",
+          "metadata": {
+            "description": "Email of the administrator who should be notified about Azure Security Center alert"
+          }
+        },
+        "ascOwnerContact": {
+          "type": "string",
+          "metadata": {
+            "description": "Phone number of the administrator should be notified about Azure Security Center alert"
+          }
+        },
+        "highSeverityAlertNotification": {
+          "type": "string",
+          "defaultValue": "On",
+          "allowedValues": [
+            "On",
+            "Off"
+          ],
+          "metadata": {
+            "description": "Specify whether you want to notify high severity alert to ASC administrator"
+          }
+        },
+        "subscriptionOwnerNotification": {
+          "type": "string",
+          "defaultValue": "On",
+          "allowedValues": [
+            "On",
+            "Off"
+          ],
+          "metadata": {
+            "description": "Specifiy whether you want to notify high severity alert to subscription owner"
+          }
+        },
+        "virtualMachineTier": {
+          "type": "string",
+          "defaultValue": "Standard",
+          "allowedValues": [
+            "Standard",
+            "Free"
+          ],
+          "metadata": {
+            "description": "Specifiy whether you want to enable Standard tier for Virtual Machine resource type"
+          }
+        },
+        "appServiceTier": {
+          "type": "string",
+          "defaultValue": "Standard",
+          "allowedValues": [
+            "Standard",
+            "Free"
+          ],
+          "metadata": {
+            "description": "Specify whether you want to enable Standard tier for Azure App Service resource type"
+          }
+        },
+        "paasSQLServiceTier": {
+          "type": "string",
+          "defaultValue": "Standard",
+          "allowedValues": [
+            "Standard",
+            "Free"
+          ],
+          "metadata": {
+            "description": "Specify whether you want to enable Standard tier for PaaS SQL Service resource type"
+          }
+        },
+        "sqlServerOnVmTier": {
+          "type": "string",
+          "defaultValue": "Standard",
+          "allowedValues": [
+            "Standard",
+            "Free"
+          ],
+          "metadata": {
+            "description": "Specify whether you want to enable Standard tier for SQL Server on VM resource type"
+          }
+        },
+        "storageAccountTier": {
+          "type": "string",
+          "defaultValue": "Standard",
+          "allowedValues": [
+            "Standard",
+            "Free"
+          ],
+          "metadata": {
+            "description": "Specify whether you want to enable Standard tier for Storage Account resource type"
+          }
+        },
+        "kubernetesServiceTier": {
+          "type": "string",
+          "defaultValue": "Standard",
+          "allowedValues": [
+            "Standard",
+            "Free"
+          ],
+          "metadata": {
+            "description": "Specify whether you want to enable Standard tier for Kubernetes service resource type"
+          }
+        },
+        "containerRegistryTier": {
+          "type": "string",
+          "defaultValue": "Standard",
+          "allowedValues": [
+            "Standard",
+            "Free"
+          ],
+          "metadata": {
+            "description": "Specify whether you want to enable Standard tier for Container Registry resource type"
+          }
+        },
+        "keyvaultTier": {
+          "type": "string",
+          "defaultValue": "Standard",
+          "allowedValues": [
+            "Standard",
+            "Free"
+          ],
+          "metadata": {
+            "description": "Specify whether you want to enable Standard tier for Key Vault resource type"
+          }
+        }
+      },
+      "resources": [
+        {
+          "type": "Microsoft.Security/workspaceSettings",
+          "apiVersion": "2017-08-01-preview",
+          "name": "default",
+          "properties": {
+            "scope": "[subscription().id]",
+            "workspaceId": "[concat(subscription().id,'/resourceGroups/',parameters('globalworkspaceRgName'),'/providers/Microsoft.OperationalInsights/workspaces/',parameters('globalworkspaceName'))]"
+          }
+        },
+        {
+          "type": "Microsoft.Security/autoProvisioningSettings",
+          "apiVersion": "2017-08-01-preview",
+          "name": "default",
+          "properties": {
+            "autoProvision": "[parameters('autoProvisionSetting')]"
+          }
+        },
+        {
+          "type": "Microsoft.Security/securityContacts",
+          "apiVersion": "2017-08-01-preview",
+          "name": "default1",
+          "properties": {
+            "email": "[parameters('ascOwnerEmail')]",
+            "phone": "[parameters('ascOwnerContact')]",
+            "alertNotifications": "[parameters('highSeverityAlertNotification')]",
+            "alertsToAdmins": "[parameters('subscriptionOwnerNotification')]"
+          }
+        },
+        {
+          "type": "Microsoft.Security/pricings",
+          "apiVersion": "2018-06-01",
+          "name": "VirtualMachines",
+          "properties": {
+            "pricingTier": "[parameters('virtualMachineTier')]"
+          }
+        },
+        {
+          "type": "Microsoft.Security/pricings",
+          "apiVersion": "2018-06-01",
+          "name": "AppServices",
+          "dependsOn": [
+            "[concat('Microsoft.Security/pricings/VirtualMachines')]"
+          ],
+          "properties": {
+            "pricingTier": "[parameters('appServiceTier')]"
+          }
+        },
+        {
+          "type": "Microsoft.Security/pricings",
+          "apiVersion": "2018-06-01",
+          "name": "SqlServers",
+          "dependsOn": [
+            "[concat('Microsoft.Security/pricings/AppServices')]"
+          ],
+          "properties": {
+            "pricingTier": "[parameters('paasSQLServiceTier')]"
+          }
+        },
+        {
+          "type": "Microsoft.Security/pricings",
+          "apiVersion": "2018-06-01",
+          "name": "SqlServerVirtualMachines",
+          "dependsOn": [
+            "[concat('Microsoft.Security/pricings/SqlServers')]"
+          ],
+          "properties": {
+            "pricingTier": "[parameters('sqlServerOnVmTier')]"
+          }
+        },
+        {
+          "type": "Microsoft.Security/pricings",
+          "apiVersion": "2018-06-01",
+          "name": "StorageAccounts",
+          "dependsOn": [
+            "[concat('Microsoft.Security/pricings/SqlServerVirtualMachines')]"
+          ],
+          "properties": {
+            "pricingTier": "[parameters('storageAccountTier')]"
+          }
+        },
+        {
+          "type": "Microsoft.Security/pricings",
+          "apiVersion": "2018-06-01",
+          "name": "KubernetesService",
+          "dependsOn": [
+            "[concat('Microsoft.Security/pricings/StorageAccounts')]"
+          ],
+          "properties": {
+            "pricingTier": "[parameters('kubernetesServiceTier')]"
+          }
+        },
+        {
+          "type": "Microsoft.Security/pricings",
+          "apiVersion": "2018-06-01",
+          "name": "ContainerRegistry",
+          "dependsOn": [
+            "[concat('Microsoft.Security/pricings/KubernetesService')]"
+          ],
+          "properties": {
+            "pricingTier": "[parameters('containerRegistryTier')]"
+          }
+        },
+        {
+          "type": "Microsoft.Security/pricings",
+          "apiVersion": "2018-06-01",
+          "name": "KeyVaults",
+          "dependsOn": [
+            "[concat('Microsoft.Security/pricings/ContainerRegistry')]"
+          ],
+          "properties": {
+            "pricingTier": "[parameters('keyvaultTier')]"
+          }
+        }
+      ],
+      "outputs": {}
+    },
+    "parameters": {
+      "globalworkspaceName": {
+        "value": "[parameters('azureSecurityCentertemplate_globalworkspaceName')]"
+      },
+      "globalworkspaceRgName": {
+        "value": "[parameters('azureSecurityCentertemplate_globalworkspaceRgName')]"
+      },
+      "autoProvisionSetting": {
+        "value": "On"
+      },
+      "ascOwnerEmail": {
+        "value": "[parameters('azureSecurityCentertemplate_ascOwnerEmail')]"
+      },
+      "ascOwnerContact": {
+        "value": "[parameters('azureSecurityCentertemplate_ascOwnerContact')]"
+      },
+      "highSeverityAlertNotification": {
+        "value": "On"
+      },
+      "subscriptionOwnerNotification": {
+        "value": "On"
+      },
+      "virtualMachineTier": {
+        "value": "Standard"
+      },
+      "appServiceTier": {
+        "value": "Standard"
+      },
+      "paasSQLServiceTier": {
+        "value": "Standard"
+      },
+      "sqlServerOnVmTier": {
+        "value": "Standard"
+      },
+      "storageAccountTier": {
+        "value": "Standard"
+      },
+      "kubernetesServiceTier": {
+        "value": "Standard"
+      },
+      "containerRegistryTier": {
+        "value": "Standard"
+      },
+      "keyvaultTier": {
+        "value": "Standard"
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "policyAssignment",
+  "properties": {
+    "displayName": "[Preview]: Deploy Dependency Agent for Windows VMs",
+    "dependsOn": [],
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1c210e94-a481-4beb-95fa-1571b434fb04",
+    "parameters": {
+      "listOfImageIdToInclude": {
+        "value": []
+      }
+    }
+  }
+}

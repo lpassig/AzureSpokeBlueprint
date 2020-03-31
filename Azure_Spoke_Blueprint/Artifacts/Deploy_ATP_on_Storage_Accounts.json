@@ -1,0 +1,13 @@
+{
+  "kind": "policyAssignment",
+  "properties": {
+    "displayName": "Deploy Advanced Threat Protection on Storage Accounts",
+    "dependsOn": [],
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/361c2074-3595-4e5d-8cab-4f21dffc835c",
+    "parameters": {
+      "effect": {
+        "value": "DeployIfNotExists"
+      }
+    }
+  }
+}

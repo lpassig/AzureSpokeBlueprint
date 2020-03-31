@@ -1,0 +1,9 @@
+{
+  "kind": "policyAssignment",
+  "properties": {
+    "displayName": "Deploy prerequisites to enable Guest Configuration Policy on Linux VMs.",
+    "dependsOn": [],
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fb27e9e0-526e-4ae1-89f2-a2a0bf0f8a50",
+    "parameters": {}
+  }
+}

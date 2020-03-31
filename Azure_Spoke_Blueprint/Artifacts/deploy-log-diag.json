@@ -1,0 +1,123 @@
+{
+  "kind": "template",
+  "properties": {
+    "displayName": "Deploy Log Analytics and Storage Account",
+    "description": "Deploy Log Analytics and Storage Account for Diagnostics",
+    "dependsOn": [],
+    "template": {
+      "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "Organization_Name": {
+          "type": "string"
+        },
+        "data-retention": {
+          "type": "int",
+          "defaultValue": 365,
+          "minValue": 0,
+          "maxValue": 365,
+          "metadata": {
+            "displayName": "Log retention in days",
+            "description": "Number of days data will be retained for"
+          }
+        },
+        "Spoke_Number": {
+          "type": "string",
+          "defaultValue": "001",
+          "metadata": {
+            "displayName": "Spoke_Number",
+            "description": "What number does the  current spoke have that your are roling out?"
+          }
+        }
+      },
+      "variables": {
+        "deployment-prefix": "[concat(parameters('Organization_Name'), '-core')]",
+        "diagnostic-storageAccount-prefix": "[concat(replace(variables('deployment-prefix'), '-', ''), parameters('Spoke_Number'), 'diag')]",
+        "diagnostic-storageAccount-name": "[toLower(variables('diagnostic-storageAccount-prefix'))]",
+        "oms-workspace-name": "[concat(variables('deployment-prefix'), '-', parameters('Spoke_Number'), '-log')]"
+      },
+      "resources": [
+        {
+          "comments": "----DIAGNOSTICS STORAGE ACCOUNT-----",
+          "type": "Microsoft.Storage/storageAccounts",
+          "name": "[variables('diagnostic-storageAccount-name')]",
+          "apiVersion": "2018-07-01",
+          "location": "[resourceGroup().location]",
+          "kind": "StorageV2",
+          "sku": {
+            "name": "Standard_LRS"
+          },
+          "tags": {
+            "displayName": "Storage Account"
+          },
+          "properties": {
+            "encryption": {
+              "keySource": "Microsoft.Storage",
+              "services": {
+                "blob": {
+                  "enabled": true
+                },
+                "file": {
+                  "enabled": true
+                }
+              }
+            },
+            "supportsHttpsTrafficOnly": true
+          }
+        },
+        {
+          "type": "Microsoft.Storage/storageAccounts/providers/locks",
+          "apiVersion": "2016-09-01",
+          "name": "[concat(variables('diagnostic-storageAccount-name'), '/Microsoft.Authorization/storageDoNotDelete')]",
+          "dependsOn": [
+            "[concat('Microsoft.Storage/storageAccounts/', variables('diagnostic-storageAccount-name'))]"
+          ],
+          "comments": "Resource lock on diagnostic storage account",
+          "properties": {
+            "level": "CannotDelete"
+          }
+        },
+        {
+          "type": "Microsoft.OperationalInsights/workspaces",
+          "name": "[variables('oms-workspace-name')]",
+          "apiVersion": "2017-03-15-preview",
+          "location": "[resourceGroup().location]",
+          "tags": {
+            "displayName": "Log Analytics"
+          },
+          "properties": {
+            "sku": {
+              "Name": "pergb2018"
+            },
+            "retention": "[parameters('data-retention')]"
+          }
+        },
+        {
+          "type": "Microsoft.OperationalInsights/workspaces/providers/locks",
+          "apiVersion": "2016-09-01",
+          "name": "[concat(variables('oms-workspace-name'), '/Microsoft.Authorization/logAnalyticsDoNotDelete')]",
+          "dependsOn": [
+            "[variables('oms-workspace-name')]"
+          ],
+          "comments": "Resource lock on Log Analytics",
+          "properties": {
+            "level": "CannotDelete"
+          }
+        }
+      ],
+      "outputs": {}
+    },
+    "resourceGroup": "ccoe-core-rg",
+    "parameters": {
+      "Organization_Name": {
+        "value": "[parameters('OrganizationName')]"
+      },
+      "data-retention": {
+        "value": 365
+      },
+      "Spoke_Number": {
+        "value": "[parameters('SpokeNumber')]"
+      }
+    }
+  }
+}

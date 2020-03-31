@@ -1,0 +1,16 @@
+{
+  "kind": "policyAssignment",
+  "properties": {
+    "displayName": "[Preview]: Deploy Log Analytics Agent for Linux VMs",
+    "dependsOn": [],
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/053d3325-282c-4e5c-b944-24faffd30d77",
+    "parameters": {
+      "logAnalytics": {
+        "value": "[parameters('[Preview]:DeployLogAnalyticsAgentforLinuxVMs_logAnalytics')]"
+      },
+      "listOfImageIdToInclude": {
+        "value": []
+      }
+    }
+  }
+}

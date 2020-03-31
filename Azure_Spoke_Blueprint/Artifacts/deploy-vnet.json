@@ -1,0 +1,74 @@
+{
+  "kind": "template",
+  "properties": {
+    "displayName": "Deploy VNet and one subnet",
+    "description": "",
+    "dependsOn": [],
+    "template": {
+      "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "Organization_Name": {
+          "type": "string",
+          "metadata": {
+            "displayName": "Prefix for the resource names deployed in this template"
+          }
+        },
+        "addressSpaceVnet": {
+          "type": "string",
+          "defaultValue": "10.0.0.0/16"
+        },
+        "addressSpaceSubnet": {
+          "type": "string",
+          "defaultValue": "10.0.0.0/24"
+        },
+        "Spoke_Number": {
+          "type": "string",
+          "defaultValue": "001",
+          "metadata": {
+            "displayName": "Spoke_Number",
+            "description": "What number does the  current spoke have that your are roling out?"
+          }
+        }
+      },
+      "resources": [
+        {
+          "apiVersion": "2015-06-15",
+          "type": "Microsoft.Network/virtualNetworks",
+          "name": "[concat(parameters('Organization_Name'), '-core-', parameters('Spoke_Number'),'-vnet')]",
+          "location": "[resourceGroup().location]",
+          "properties": {
+            "addressSpace": {
+              "addressPrefixes": [
+                "[parameters('addressSpaceVnet')]"
+              ]
+            },
+            "subnets": [
+              {
+                "name": "[concat(parameters('Organization_Name'), '-core-', parameters('Spoke_Number'),'-subnet')]",
+                "properties": {
+                  "addressPrefix": "[parameters('addressSpaceSubnet')]"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "resourceGroup": "ccoe-core-rg",
+    "parameters": {
+      "addressSpaceVnet": {
+        "value": "[parameters('deployVNetandonesubnet_addressSpaceVnet')]"
+      },
+      "addressSpaceSubnet": {
+        "value": "[parameters('deployVNetandonesubnet_addressSpaceSubnet')]"
+      },
+      "Organization_Name": {
+        "value": "[parameters('OrganizationName')]"
+      },
+      "Spoke_Number": {
+        "value": "[parameters('SpokeNumber')]"
+      }
+    }
+  }
+}
