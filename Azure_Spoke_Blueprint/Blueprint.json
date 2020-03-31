@@ -22,6 +22,15 @@
         "defaultValue": "ccoe-core-rg",
         "allowedValues": []
       },
+      "azureSecurityCentertemplate_globalworkspaceSubscriptionID": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Subscription ID of Central Workspace (Azure Security Center Configuration)",
+          "description": "Subscription ID where the central Log Analytics workspace is hosted"
+        },
+        "defaultValue": "ccoe-core-rg",
+        "allowedValues": []
+      },
       "azureSecurityCentertemplate_ascOwnerEmail": {
         "type": "string",
         "metadata": {
