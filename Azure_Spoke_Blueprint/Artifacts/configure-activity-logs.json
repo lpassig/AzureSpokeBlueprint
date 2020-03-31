@@ -43,7 +43,7 @@
           "apiVersion": "[variables('apiVersions').diagnosticSettings]",
           "location": "Global",
           "properties": {
-            "workspaceId": "[concat('/subscription/',parameters('globalworkspaceSubscriptionID'),'/resourceGroups/',parameters('globalworkspaceRgName'),'/providers/Microsoft.OperationalInsights/workspaces/',parameters('globalworkspaceName'))]",
+            "workspaceId": "[concat('/subscriptions/',parameters('globalworkspaceSubscriptionID'),'/resourceGroups/',parameters('globalworkspaceRgName'),'/providers/Microsoft.OperationalInsights/workspaces/',parameters('globalworkspaceName'))]",
             "logs": [
               {
                 "category": "Administrative",
