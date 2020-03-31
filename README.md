@@ -37,7 +37,7 @@ This blueprint allows a zero manual touch deployemnt of a spoke environment. THe
 ## Prerequisites 
 - An Azure ```Hub-Subscription``` that hosts the a Hub-VNet and a region central Log Analytics workspace
 - An Azure ```Spoke-Subscription``` that can be used to assigned the blueprint to
-- A ```User assigned - Managed Service Identity``` with ```Owner``` permissions on the Spoke-Subscriptions and ```Network Contributor```  permissions on the Hub-Subscription 
+- A ```User assigned - Managed Service Identity``` with ```Owner``` permissions on the Spoke-Subscriptions and ```Network Contributor``` as well as ```Log Analytics Contributor``` permissions on the Hub-Subscription 
 
 ## How do I import the blueprint?
 
