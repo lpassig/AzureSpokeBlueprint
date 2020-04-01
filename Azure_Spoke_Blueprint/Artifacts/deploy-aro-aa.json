@@ -2,7 +2,7 @@
   "kind": "template",
   "properties": {
     "displayName": "Deploy Azure Resource Optimization (ARO) Toolkit (Azure Automation Account)",
-    "description": "New Version https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/azure-resource-optimization-toolkit/azuredeploy.json",
+    "description": "Version: https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/azure-resource-optimization-toolkit/azuredeploy.json",
     "dependsOn": [],
     "template": {
       "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
