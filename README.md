@@ -71,6 +71,13 @@ This blueprint allows a zero manual touch deployemnt of a spoke environment. THe
 - Azure Automation Account: ```UniqueString```-aa-automation</p>
 7.  Click ```Assign``` to assign the blueprint and begin to bootstrap the ```Spoke-Subscription```
 
+## Deploy in a differnet Region than West Europe
+
+- Chage Region of RGs in the blueprint: 
+PIC
+- CHange AzureRegion in Blueprint Parameters 
+- Create new Managed Service Identity  
+
 ## What is the result? 
 
 There are two major deployment types that are being . 
