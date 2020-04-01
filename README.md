@@ -1,14 +1,16 @@
 # Azure Spoke Blueprint Version 0.1
-This blueprint creates a fully functional spoke landing zone that can be used by business units.
+This blueprint creates a fully functional spoke landing zone that can be used by business units. The created environment enforces a set of Governace, Compliance and Seucrity measures and establishes connectivity to a Hub VNet.
 
 ## Prerequisites 
 - An Azure ```Hub-Subscription``` that hosts the a Hub-VNet and a region central Log Analytics workspace
-- An Azure ```Spoke-Subscription``` that can be used to assigned the blueprint to
-- A ```User assigned - Managed Service Identity``` with ```Owner``` permissions on the Spoke-Subscriptions and ```Network Contributor``` as well as ```Log Analytics Contributor``` permissions on the Hub-Subscription
+- An Azure ```Spoke-Subscription``` that can be used to bootstrap 
+- A ```User assigned - Managed Service Identity``` with the following permissions: 
+  -  ```Spoke-Subscription``` : ```Owner``` 
+  -  ```Hub-Subscription``` : ```Network Contributor``` and ```Log Analytics Contributor``` 
 
 ## What is done within this blueprint?
 
-This blueprint allows a zero manual touch deployemnt of a spoke environment. THe blueprint allows the central IT to bootstrap and provide spoke environments to business units.
+This blueprint allows a zero touch deployemnt of a spoke environment. THe blueprint allows the central IT to bootstrap and provide spoke environments to business units.
 
 ### Creation of the following ```Core Resources``` within a Spoke-Subscription:
 
@@ -94,3 +96,8 @@ There are two major deployments that are being created. The first one being ```r
 ![Assign Demo1](media/Result1.png)</p></p>
 2. Deployment of Azure policies:</p>
 ![Assign Demo1](media/Result2.png)</p></p>
+
+## FAQ
+
+### The rollout of the Log analytics Agent fails
+You need to be a bit more patient. Installing and configuring  all agents is a timeconsuming process. This can take up to 1 hour.
