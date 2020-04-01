@@ -83,7 +83,7 @@ This blueprint allows a zero manual touch deployemnt of a spoke environment. THe
 - Azure Recovery Services Vault: ```CompanyPrefix```-core-001-vault
 - Azure VNet: ```CompanyPrefix```-core-001-vnet
 - Azure Subnet: ```CompanyPrefix```-core-001-subnet
-- Azure Automation Account: ```UniqueString```-aa-automation</p>
+- Azure Automation Account: ```CompanyPrefix```-core-aa-```UiniqueString```</p>
 7.  Click ```Assign``` to assign the blueprint and begin to bootstrap the ```Spoke-Subscription```
 
 ## Deploy in a differnet Region than West Europe
