@@ -70,3 +70,12 @@ This blueprint allows a zero manual touch deployemnt of a spoke environment. THe
 - Azure Subnet: ```CompanyPrefix```-core-001-subnet
 - Azure Automation Account: ```UniqueString```-aa-automation</p>
 7.  Click ```Assign``` to assign the blueprint and begin to bootstrap the ```Spoke-Subscription```
+
+## What is the result? 
+
+There are two major deployment types that are being . 
+
+1. Deployment of Azure resources:  
+![Assign Demo1](media/Result.png)</p></p>
+2. Deployment of Azure Policies:
+![Assign Demo1](media/Result2.JPG)</p></p>
