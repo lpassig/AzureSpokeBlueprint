@@ -95,9 +95,9 @@ PIC
 
 ## What is the result? 
 
-There are two major deployment types that are being . 
+There are two major deployments that are being created. The first one being ```resources``` that can be used by the Business Unit. The second one being ```Policies``` that enforces a set of Governace, Compliance and Seucrity measures.    
 
-1. Deployment of Azure resources:  
+1. Deployment of Azure resources:</p>
 ![Assign Demo1](media/Result1.png)</p></p>
-2. Deployment of Azure Policies:
+2. Deployment of Azure policies:</p>
 ![Assign Demo1](media/Result2.png)</p></p>
