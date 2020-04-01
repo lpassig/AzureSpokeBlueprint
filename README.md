@@ -1,42 +1,55 @@
-# Azure Spoke Blueprint 
+# Azure Spoke Blueprint Version 0.1
 This blueprint creates a fully functional spoke landing zone that can be used by business units.
 
 ## What is done within this blueprint?
 
 This blueprint allows a zero manual touch deployemnt of a spoke environment. THe blueprint allows the central IT to bootstrap and provide spoke environments to business units.   
 
-### Creation of the following core ```resources``` within a Spoke-Subscription:
+### Creation of the following core ```Resources``` within a Spoke-Subscription:
 
+- Resource Group for Core Services/Resources
 - Log Analytics Workspace
 - Key Vault (Premium)
-- Security Center (Standard) with Log Analytics Integration
 - Virtual Network (incl. Core Subnet) 
-- Recovery Services Vault for Backup/Restore
+- Recovery Services Vault for Backup and Restore
 - Storage Account for Diagnostics
-- Azure Automation Account - Configured with the Azure Resource Optimization (ARO) Toolkit (Developed by CSEO)
-- Resource Group for "App001"
+- Azure Automation Account - Configured with the Azure Resource Optimization (ARO) Toolkit (Developed by Microsoft CSEO)
+- Sample Resource Group for "App001"
+- Resource Group for NetworkWatcher service
 
-### Deployment/Configuration of the following core settings:
-- Peering to a Hub VNet within another subscription 
+### Deployment/Configuration of the following ```Core Settings```:
+
+- Peering to a Hub VNet 
 - Send Subscription Activity Logs to Log Analytics
-- Deploy Log Analytics Agents for Windows and Linux
-- Deploy Dependency Agents for Windows and Linux
+- Activate Security Center "Standard" with Log Analytics Integration
+- Deploy Log Analytics Agents for Windows and Linux VMs
+- Deploy Dependency Agents for Windows and Linux VMs
+- Deploy prerequisites to enable Guest Configuration Policy on Windows and Linux VMs
 - Deploy Network Watcher RG and activate the service for the region
-- Deploy Microsoft IaaSAntimalware extension for Windows Servers
 
-### Configuration of the following Security Settings:
+### Configuration of the following ```Security Settings```:
+
+- Advanced Threat Protection for Cosmos DB Accounts
+- Auditing on SQL servers
+- Advanced Threat Protection on Storage Accounts
+- Enable Monitoring in Azure Security Center
+- Auditing SQL DB transparent data encryption
+- Require encryption on Data Lake Store accounts
+- Threat Detection on SQL servers
+- Deploy Microsoft IaaSAntimalware extension for Windows Servers
+- Deploy Advanced Data Security on SQL servers
  
 ### Highlights: 
 - Cross Subscription aware:
   - Cross Subscription VNet Peering for advanced Hub-Spoke scenarios
   - Cross Subscription connection to a central Log Analytics workspace to store ```Activity Logs``` and ```Security Center Data Collection Logs```
 - Roll out of Azure Resource Optimization (ARO) Toolkit in Azure Automation (Developed by CSEO)
-- Deploy all available agents for Logging and Monitoring 
+- Deployment of several Logging and Monitoring agents 
 
 ## Prerequisites 
 - An Azure ```Hub-Subscription``` that hosts the a Hub-VNet and a region central Log Analytics workspace
 - An Azure ```Spoke-Subscription``` that can be used to assigned the blueprint to
-- A ```User assigned - Managed Service Identity``` with ```Owner``` permissions on the Spoke-Subscriptions and ```Network Contributor``` as well as ```Log Analytics Contributor``` permissions on the Hub-Subscription 
+- A ```User assigned - Managed Service Identity``` with ```Owner``` permissions on the Spoke-Subscriptions and ```Network Contributor``` as well as ```Log Analytics Contributor``` permissions on the Hub-Subscription
 
 ## How do I import the blueprint?
 
@@ -73,7 +86,7 @@ This blueprint allows a zero manual touch deployemnt of a spoke environment. THe
 
 ## Deploy in a differnet Region than West Europe
 
-- Chage Region of RGs in the blueprint: 
+- Change Region of RGs in the blueprint: 
 PIC
 - CHange AzureRegion in Blueprint Parameters 
 - Create new Managed Service Identity  
@@ -83,6 +96,6 @@ PIC
 There are two major deployment types that are being . 
 
 1. Deployment of Azure resources:  
-![Assign Demo1](media/Result.png)</p></p>
+![Assign Demo1](media/Result1.png)</p></p>
 2. Deployment of Azure Policies:
-![Assign Demo1](media/Result2.JPG)</p></p>
+![Assign Demo1](media/Result2.png)</p></p>
