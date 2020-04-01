@@ -2,7 +2,9 @@
   "kind": "policyAssignment",
   "properties": {
     "displayName": "Enable Monitoring in Azure Security Center",
-    "dependsOn": [],
+    "dependsOn": [
+      "configure-asc"
+    ],
     "policyDefinitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
     "parameters": {
       "vmssSystemUpdatesMonitoringEffect": {
