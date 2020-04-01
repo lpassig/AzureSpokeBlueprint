@@ -1,28 +1,19 @@
 # Azure Spoke Blueprint Version 0.1
-This blueprint creates a fully functional spoke landing zone that can be used by business units. The created environment enforces a set of Governace, Compliance and Seucrity measures and establishes connectivity to a Hub VNet.
-
+This blueprint creates a fully functional spoke landing zone that can be used by business units. The created environment enforces a set of Governance, Compliance and Security measures and establishes connectivity to a Hub VNet.
+ 
 ## Prerequisites 
 - An Azure ```Hub-Subscription``` that hosts the a Hub-VNet and a region central Log Analytics workspace
 - An Azure ```Spoke-Subscription``` that can be used to bootstrap 
 - A ```User assigned - Managed Service Identity``` with the following permissions: 
   -  ```Spoke-Subscription``` : ```Owner``` 
   -  ```Hub-Subscription``` : ```Network Contributor``` and ```Log Analytics Contributor``` 
-
-## Highlights: 
-- Cross Subscription aware:
-  - Cross Subscription VNet Peering for advanced Hub-Spoke scenarios
-  - Cross Subscription connection to a central Log Analytics workspace to store ```Activity Logs``` and ```Security Center Data Collection Logs```
-- Roll out of Azure Resource Optimization (ARO) Toolkit in Azure Automation (Developed by Microsoft CSEO) for opimized VM Management. 
-- Deployment of several Logging and Monitoring agents
-- Assignment of recommended default ```Tags``` on the Core Services Resource Group:</p> 
- ![Tags Demo](media/Tags.png)
-
+ 
 ## What is done within this blueprint?
-
-This blueprint allows a zero touch deployemnt of a spoke environment. THe blueprint allows the central IT to bootstrap and provide spoke environments to business units.
-
+ 
+This blueprint allows a zero touch deployment of a spoke environment. THe blueprint allows the central IT to bootstrap and provide spoke environments to business units.
+ 
 ### Creation of the following ```Core Resources``` within a Spoke-Subscription:
-
+ 
 - Resource Group for Core Services/Resources
 - Log Analytics Workspace
 - Key Vault (Premium)
@@ -32,9 +23,9 @@ This blueprint allows a zero touch deployemnt of a spoke environment. THe bluepr
 - Azure Automation Account - Configured with the Azure Resource Optimization (ARO) Toolkit (Developed by Microsoft CSEO)
 - Sample Resource Group for "App001"
 - Resource Group for NetworkWatcher service
-
+ 
 ### Deployment/Configuration of the following ```Core Settings```:
-
+ 
 - Peering to a Hub VNet 
 - Send Subscription Activity Logs to Log Analytics
 - Activate Security Center "Standard" with Log Analytics Integration
@@ -42,9 +33,9 @@ This blueprint allows a zero touch deployemnt of a spoke environment. THe bluepr
 - Deploy Dependency Agents for Windows and Linux VMs
 - Deploy prerequisites to enable Guest Configuration Policy on Windows and Linux VMs
 - Deploy Network Watcher RG and activate the service for the region
-
+ 
 ### Configuration of the following ```Core Security Settings```:
-
+ 
 - Advanced Threat Protection for Cosmos DB Accounts
 - Enable Auditing on SQL servers
 - Advanced Threat Protection on Storage Accounts
@@ -54,9 +45,18 @@ This blueprint allows a zero touch deployemnt of a spoke environment. THe bluepr
 - Threat Detection on SQL servers
 - Deploy Microsoft IaaSAntimalware extension for Windows Servers
 - Deploy Advanced Data Security on SQL servers
-
+ 
+### Highlights: 
+- Cross Subscription aware:
+  - Cross Subscription VNet Peering for advanced Hub-Spoke scenarios
+  - Cross Subscription connection to a central Log Analytics workspace to store ```Activity Logs``` and ```Security Center Data Collection Logs```
+- Roll out of Azure Resource Optimization (ARO) Toolkit in Azure Automation (Developed by Microsoft CSEO) for optimized VM Management. 
+- Deployment of several Logging and Monitoring agents
+- Assignment of recommended default ```Tags``` on the Core Services Resource Group:</p> 
+ ![Tags Demo](media/Tags.png)
+ 
 ## How do I import the blueprint?
-
+ 
 1. Download the repository as a zip file:</p>
    ![Download Demo](media/download_repo.gif)
 2. Upload zip file via the Azure CloudShell:</p>
@@ -67,7 +67,7 @@ This blueprint allows a zero touch deployemnt of a spoke environment. THe bluepr
    ```cd ./AzureSpokeBlueprint/AzureSpokeBlueprint-master```</p>
 5. Import the blueprint into your management group:</p>
    ```Import-AzBlueprintWithArtifact -Name 'Azure_Spoke_Blueprint' -ManagementGroupId 'xxxxxxxxx-xxxx-xxxxx-xxx-xxxxx-xxxxx' -InputPath ./Azure_Spoke_Blueprint```</p>
-
+ 
 ## How do I assign the blueprint? 
 1. Right-click the imported blueprint draft and select ```Publish blueprint```</p>
 2. Enter a version number (e.g. 0.1) and some comments and click ```Publish```</p>
@@ -87,17 +87,17 @@ This blueprint allows a zero touch deployemnt of a spoke environment. THe bluepr
 - Azure Subnet: ```CompanyPrefix```-core-001-subnet
 - Azure Automation Account: ```CompanyPrefix```-core-aa-```UiniqueString```</p>
 7.  Click ```Assign``` to assign the blueprint and begin to bootstrap the ```Spoke-Subscription```
-
+ 
 ## What is the result? 
-
-There are two major deployments that are being created. The first one being ```resources``` that can be used by the Business Unit. The second one being ```Policies``` that enforces a set of Governace, Compliance and Seucrity measures.    
-
+ 
+There are two major deployments that are being created. The first one being ```resources``` that can be used by the Business Unit. The second one being ```Policies``` that enforces a set of Governance, Compliance and Security measures.    
+ 
 1. Deployment of Azure resources:</p>
 ![Assign Demo1](media/Result1.png)</p></p>
 2. Deployment of Azure policies:</p>
 ![Assign Demo1](media/Result2.png)</p></p>
-
+ 
 ## FAQ
-
+ 
 ### The rollout of the Log analytics Agent fails
-You need to be a bit more patient. Installing and configuring  all agents is a timeconsuming process. This can take up to 1 hour.
+You need to be a bit more patient. Installing and configuring all agents is a time consuming process. This can take up to 1 hour. 
