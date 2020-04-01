@@ -45,7 +45,7 @@ This blueprint allows a zero manual touch deployemnt of a spoke environment. THe
   - Cross Subscription connection to a central Log Analytics workspace to store ```Activity Logs``` and ```Security Center Data Collection Logs```
 - Roll out of Azure Resource Optimization (ARO) Toolkit in Azure Automation (Developed by Microsoft CSEO) for opimized VM Management. 
 - Deployment of several Logging and Monitoring agents
-- Assignment of recommended ```Tags``` on Core Services Resource Group: 
+- Assignment of recommended default ```Tags``` on the Core Services Resource Group:</p> 
  ![Tags Demo](media/Tags.png)
 
 ## Prerequisites 
