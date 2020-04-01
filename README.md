@@ -8,6 +8,15 @@ This blueprint creates a fully functional spoke landing zone that can be used by
   -  ```Spoke-Subscription``` : ```Owner``` 
   -  ```Hub-Subscription``` : ```Network Contributor``` and ```Log Analytics Contributor``` 
 
+## Highlights: 
+- Cross Subscription aware:
+  - Cross Subscription VNet Peering for advanced Hub-Spoke scenarios
+  - Cross Subscription connection to a central Log Analytics workspace to store ```Activity Logs``` and ```Security Center Data Collection Logs```
+- Roll out of Azure Resource Optimization (ARO) Toolkit in Azure Automation (Developed by Microsoft CSEO) for opimized VM Management. 
+- Deployment of several Logging and Monitoring agents
+- Assignment of recommended default ```Tags``` on the Core Services Resource Group:</p> 
+ ![Tags Demo](media/Tags.png)
+
 ## What is done within this blueprint?
 
 This blueprint allows a zero touch deployemnt of a spoke environment. THe blueprint allows the central IT to bootstrap and provide spoke environments to business units.
@@ -45,15 +54,6 @@ This blueprint allows a zero touch deployemnt of a spoke environment. THe bluepr
 - Threat Detection on SQL servers
 - Deploy Microsoft IaaSAntimalware extension for Windows Servers
 - Deploy Advanced Data Security on SQL servers
- 
-### Highlights: 
-- Cross Subscription aware:
-  - Cross Subscription VNet Peering for advanced Hub-Spoke scenarios
-  - Cross Subscription connection to a central Log Analytics workspace to store ```Activity Logs``` and ```Security Center Data Collection Logs```
-- Roll out of Azure Resource Optimization (ARO) Toolkit in Azure Automation (Developed by Microsoft CSEO) for opimized VM Management. 
-- Deployment of several Logging and Monitoring agents
-- Assignment of recommended default ```Tags``` on the Core Services Resource Group:</p> 
- ![Tags Demo](media/Tags.png)
 
 ## How do I import the blueprint?
 
