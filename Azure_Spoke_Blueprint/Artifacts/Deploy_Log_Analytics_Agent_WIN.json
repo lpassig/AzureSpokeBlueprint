@@ -2,7 +2,9 @@
   "kind": "policyAssignment",
   "properties": {
     "displayName": "[Preview]: Deploy Log Analytics Agent for Windows VMs",
-    "dependsOn": [],
+    "dependsOn": [
+      "deploy-log-diag"
+    ],
     "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0868462e-646c-4fe3-9ced-a733534b6a2c",
     "parameters": {
       "logAnalytics": {
