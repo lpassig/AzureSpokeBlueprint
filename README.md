@@ -1,11 +1,16 @@
 # Azure Spoke Blueprint Version 0.1
 This blueprint creates a fully functional spoke landing zone that can be used by business units.
 
+## Prerequisites 
+- An Azure ```Hub-Subscription``` that hosts the a Hub-VNet and a region central Log Analytics workspace
+- An Azure ```Spoke-Subscription``` that can be used to assigned the blueprint to
+- A ```User assigned - Managed Service Identity``` with ```Owner``` permissions on the Spoke-Subscriptions and ```Network Contributor``` as well as ```Log Analytics Contributor``` permissions on the Hub-Subscription
+
 ## What is done within this blueprint?
 
-This blueprint allows a zero manual touch deployemnt of a spoke environment. THe blueprint allows the central IT to bootstrap and provide spoke environments to business units.   
+This blueprint allows a zero manual touch deployemnt of a spoke environment. THe blueprint allows the central IT to bootstrap and provide spoke environments to business units.
 
-### Creation of the following core ```Resources``` within a Spoke-Subscription:
+### Creation of the following ```Core Resources``` within a Spoke-Subscription:
 
 - Resource Group for Core Services/Resources
 - Log Analytics Workspace
@@ -27,10 +32,10 @@ This blueprint allows a zero manual touch deployemnt of a spoke environment. THe
 - Deploy prerequisites to enable Guest Configuration Policy on Windows and Linux VMs
 - Deploy Network Watcher RG and activate the service for the region
 
-### Configuration of the following ```Security Settings```:
+### Configuration of the following ```Core Security Settings```:
 
 - Advanced Threat Protection for Cosmos DB Accounts
-- Auditing on SQL servers
+- Enable Auditing on SQL servers
 - Advanced Threat Protection on Storage Accounts
 - Enable Monitoring in Azure Security Center
 - Auditing SQL DB transparent data encryption
@@ -47,11 +52,6 @@ This blueprint allows a zero manual touch deployemnt of a spoke environment. THe
 - Deployment of several Logging and Monitoring agents
 - Assignment of recommended default ```Tags``` on the Core Services Resource Group:</p> 
  ![Tags Demo](media/Tags.png)
-
-## Prerequisites 
-- An Azure ```Hub-Subscription``` that hosts the a Hub-VNet and a region central Log Analytics workspace
-- An Azure ```Spoke-Subscription``` that can be used to assigned the blueprint to
-- A ```User assigned - Managed Service Identity``` with ```Owner``` permissions on the Spoke-Subscriptions and ```Network Contributor``` as well as ```Log Analytics Contributor``` permissions on the Hub-Subscription
 
 ## How do I import the blueprint?
 
@@ -74,7 +74,7 @@ This blueprint allows a zero manual touch deployemnt of a spoke environment. THe
    ![Assign Demo1](media/assign_blueprint1.gif)
    </p>
    Note: Change the first field "Subscription" accordingly (if needed)</p>
-5. Fill in the central ```Blueprint Parameter``` as needed. These parameters are used by multiple artifacts to and are therefore "Global": </p>
+5. Fill in the central ```Blueprint Parameter``` as needed. These parameters are used by multiple artifacts to and are therefore "Global Parameters": </p>
    ![Assign Demo2](media/Assignment2.JPG)
 6. Fill in the ```Artifact Parameter``` as needed. See the naming pattern below:</p>
 - Log Analytics Workspace: ```CompanyPrefix```-core-001-log
@@ -85,13 +85,6 @@ This blueprint allows a zero manual touch deployemnt of a spoke environment. THe
 - Azure Subnet: ```CompanyPrefix```-core-001-subnet
 - Azure Automation Account: ```CompanyPrefix```-core-aa-```UiniqueString```</p>
 7.  Click ```Assign``` to assign the blueprint and begin to bootstrap the ```Spoke-Subscription```
-
-## Deploy in a differnet Region than West Europe
-
-- Change Region of RGs in the blueprint: 
-PIC
-- CHange AzureRegion in Blueprint Parameters 
-- Create new Managed Service Identity  
 
 ## What is the result? 
 
