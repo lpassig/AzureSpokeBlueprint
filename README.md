@@ -1,5 +1,9 @@
-# Azure Spoke Blueprint Version 0.1
+# Overview (Version: 0.1)
 This blueprint creates a fully functional spoke landing zone that can be used by business units. The created environment enforces a set of Governance, Compliance and Security measures and establishes connectivity to a Hub VNet.
+
+## Architecture Diagram
+
+![Overview](media/AzureSpokeBlueprintOverview.png)
  
 ## Prerequisites 
 - An Azure ```Hub-Subscription``` that hosts the a Hub-VNet and a region central Log Analytics workspace
