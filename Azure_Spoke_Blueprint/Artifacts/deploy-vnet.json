@@ -1,8 +1,8 @@
 {
   "kind": "template",
   "properties": {
-    "displayName": "Deploy VNet and one subnet",
-    "description": "",
+    "displayName": "Deploy VNet and an Azure Bastion Subnet",
+    "description": "Deploy VNet and an Azure Bastion Subnet",
     "dependsOn": [],
     "template": {
       "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
@@ -18,9 +18,9 @@
           "type": "string",
           "defaultValue": "10.0.0.0/16"
         },
-        "addressSpaceSubnet": {
+        "AzureBastionSubnet": {
           "type": "string",
-          "defaultValue": "10.0.0.0/24"
+          "defaultValue": "10.0.0.0/27"
         },
         "Spoke_Number": {
           "type": "string",
@@ -45,9 +45,9 @@
             },
             "subnets": [
               {
-                "name": "[concat(parameters('Organization_Name'), '-core-', parameters('Spoke_Number'),'-subnet')]",
+                "name": "AzureBastionSubnet",
                 "properties": {
-                  "addressPrefix": "[parameters('addressSpaceSubnet')]"
+                  "addressPrefix": "[parameters('AzureBastionSubnet')]"
                 }
               }
             ]
@@ -60,7 +60,7 @@
       "addressSpaceVnet": {
         "value": "[parameters('deployVNetandonesubnet_addressSpaceVnet')]"
       },
-      "addressSpaceSubnet": {
+      "AzureBastionSubnet": {
         "value": "[parameters('deployVNetandonesubnet_addressSpaceSubnet')]"
       },
       "Organization_Name": {

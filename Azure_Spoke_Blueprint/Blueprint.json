@@ -1,7 +1,7 @@
 {
   "properties": {
-    "displayName": "Azure Spoke Blueprint 0.1",
-    "description": "Azure Spoke Blueprint 0.1 Last Edited: 03/31/20",
+    "displayName": "Azure Spoke Blueprint 0.2",
+    "description": "Azure Spoke Blueprint 0.2 Last Edited: 04/06/20",
     "targetScope": "subscription",
     "parameters": {
       "azureSecurityCentertemplate_globalworkspaceName": {
@@ -37,6 +37,7 @@
           "displayName": "ASC Owner Email (Azure Security Center Configuration)",
           "description": "Email of the administrator who should be notified about Azure Security Center alert"
         },
+        "defaultValue": "ITSec@company.com",
         "allowedValues": []
       },
       "azureSecurityCentertemplate_ascOwnerContact": {
@@ -45,6 +46,7 @@
           "displayName": "ASC Owner PhoneNumber (Azure Security Center Configuration)",
           "description": "Phone number of the administrator should be notified about Azure Security Center alert"
         },
+        "defaultValue": "+49172123123123123",
         "allowedValues": []
       },
       "[Preview]:DeployLogAnalyticsAgentforLinuxVMs_logAnalytics": {
@@ -68,15 +70,15 @@
         "metadata": {
           "displayName": "addressSpaceVnet (Deploy VNet and one subnet)"
         },
-        "defaultValue": "10.0.0.0/16",
+        "defaultValue": "10.2.0.0/16",
         "allowedValues": []
       },
       "deployVNetandonesubnet_addressSpaceSubnet": {
         "type": "string",
         "metadata": {
-          "displayName": "addressSpaceSubnet (Deploy VNet and one subnet)"
+          "displayName": "AzureBastionSubnet (Deploy VNet and one subnet)"
         },
-        "defaultValue": "10.0.0.0/24",
+        "defaultValue": "10.2.0.0/27",
         "allowedValues": []
       },
       "deployKeyVault_KV-AccessPolicy_ObjectID": {
@@ -117,7 +119,7 @@
       "configureVNetPeering_hubVnetName": {
         "type": "string",
         "metadata": {
-          "displayName": "hubVnetName (Configure VNet peering)"
+          "displayName": "Name of the hub VNet"
         },
         "defaultValue": "myhubvnet",
         "allowedValues": []
@@ -128,6 +130,38 @@
           "displayName": "[User group or application name] ([User group or application name] : Contributor)",
           "strongType": "PrincipalId"
         }
+      },
+      "BudgetAmount": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Enter your budget amount",
+          "description": "Enter your budget amount"
+        },
+        "defaultValue": "1000"
+      },
+      "BillingContactEmails": {
+        "type": "array",
+        "metadata": {
+          "displayName": "Email of the budget owner who should be notified when reached more than 90%",
+          "description": "Email of the budget owner who should be notified when reached more than 90%"
+        },
+        "defaultValue": ["sponsor@company.com"]
+      },
+      "BudgetStartDate": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Enter the start date of the budget (YYYY-MM-DD)",
+          "description": "Enter the start date of the budget (YYYY-MM-DD)"
+        },
+        "defaultValue": "2020-04-01"
+      },
+      "BudgetEndDate": {
+        "type": "string",
+        "metadata": {
+          "displayName": "Enter the end date of the budget (YYYY-MM-DD)",
+          "description": "Enter the end date of the budget (YYYY-MM-DD)"
+        },
+        "defaultValue": "2021-03-31"
       },
       "OrganizationName": {
         "type": "string",
