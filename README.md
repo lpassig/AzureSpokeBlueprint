@@ -1,5 +1,9 @@
-# Overview (Version: 0.1)
+# Overview (Version: 0.2)
 This blueprint creates a fully functional spoke landing zone that can be used by business units. The created environment enforces a set of Governance, Compliance and Security measures and establishes connectivity to a Hub VNet.
+
+## Version History
+- 0.1 Initital commit
+- 0.2 Added ```Azure Bastion``` and ```Cost Management Budget```
 
 ## Architecture Diagram
 
@@ -21,12 +25,14 @@ This blueprint allows a zero touch deployment of a spoke environment. THe bluepr
 - Resource Group for Core Services/Resources
 - Log Analytics Workspace
 - Key Vault (Premium)
-- Virtual Network (incl. Core Subnet) 
+- Virtual Network (incl. Bastion Subnet) 
 - Recovery Services Vault for Backup and Restore
 - Storage Account for Diagnostics
 - Azure Automation Account - Configured with the Azure Resource Optimization (ARO) Toolkit (Developed by Microsoft CSEO)
 - Sample Resource Group for "App001"
 - Resource Group for NetworkWatcher service
+- Azure Bastion Service
+- Budget (Azure Cost Management)
  
 ### Deployment/Configuration of the following ```Core Settings```:
  
@@ -56,6 +62,7 @@ This blueprint allows a zero touch deployment of a spoke environment. THe bluepr
   - Cross Subscription connection to a central Log Analytics workspace to store ```Activity Logs``` and ```Security Center Data Collection Logs```
 - Roll out of Azure Resource Optimization (ARO) Toolkit in Azure Automation (Developed by Microsoft CSEO) for optimized VM Management. 
 - Deployment of several Logging and Monitoring agents
+- Assignment of a Azure Budget (configurable)
 - Assignment of recommended default ```Tags``` on the Core Services Resource Group:</p> 
  ![Tags Demo](media/Tags.png)
  
@@ -89,6 +96,7 @@ This blueprint allows a zero touch deployment of a spoke environment. THe bluepr
 - Azure Recovery Services Vault: ```CompanyPrefix```-core-001-vault
 - Azure VNet: ```CompanyPrefix```-core-001-vnet
 - Azure Subnet: ```CompanyPrefix```-core-001-subnet
+- Azure Bastion: ```CompanyPrefix```-core-001-bastion
 - Azure Automation Account: ```CompanyPrefix```-core-aa-```UniqueString```</p>
 7.  Click ```Assign``` to assign the blueprint and begin to bootstrap the ```Spoke-Subscription```
  
@@ -103,5 +111,8 @@ There are two major deployments that are being created. The first one being ```r
  
 ## FAQ
  
-### The rollout of the Log analytics Agent fails
-You need to be a bit more patient. Installing and configuring all agents is a time consuming process. This can take up to 1 hour. 
+### The rollout of the Log analytics agent does not work
+You need to be a bit more patient. Installing and configuring all agents is a time consuming process. This can take up to 1 hour.
+
+### Know issues when it comes to Budget assignments
+The Start date needs to be the first day of the month.
