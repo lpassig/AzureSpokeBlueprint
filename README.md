@@ -117,3 +117,8 @@ You need to be a bit more patient. Installing and configuring all agents is a ti
 
 ### Know issues when it comes to Budget assignments
 The Start date needs to be the first day of the month.
+
+### Can/should I enter two diffrent Log Analytics workspaces?
+Avoid multi-homing, it can have undesired outcomes. For more information check out our recommendations
+[here](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/design-logs-deployment#recommendations) and 
+[here](https://techcommunity.microsoft.com/t5/azure-sentinel/best-practices-for-designing-an-azure-sentinel-or-azure-security/ba-p/832574#)
