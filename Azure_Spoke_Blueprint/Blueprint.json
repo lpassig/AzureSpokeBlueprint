@@ -1,14 +1,14 @@
 {
   "properties": {
     "displayName": "Azure Spoke Blueprint 0.2",
-    "description": "Azure Spoke Blueprint 0.2 Last Edited: 04/06/20",
+    "description": "Azure Spoke Blueprint 0.2 Last Edited: 04/08/20",
     "targetScope": "subscription",
     "parameters": {
       "azureSecurityCentertemplate_globalworkspaceName": {
         "type": "string",
         "metadata": {
-          "displayName": "Central Workspace Name (Azure Security Center Configuration)",
-          "description": "Name of the central Log Analytics workspace that stores security event and data collected by Azure Security Center"
+          "displayName": "Workspace Name (Azure Security Center and Activity Logs Configuration)",
+          "description": "Name of the Log Analytics workspace that stores security event and data collected by Azure Security Center"
         },
         "defaultValue": "company-central-log",
         "allowedValues": []
@@ -16,8 +16,8 @@
       "azureSecurityCentertemplate_globalworkspaceRgName": {
         "type": "string",
         "metadata": {
-          "displayName": "Central Workspace Resource Group Name (Azure Security Center Configuration)",
-          "description": "Name of the resource group where the central log analytics workspace belongs to"
+          "displayName": "Workspace Resource Group Name (Azure Security Center and Activity Logs Configuration)",
+          "description": "Name of the resource group where the log analytics workspace belongs to"
         },
         "defaultValue": "ccoe-central-rg",
         "allowedValues": []
@@ -25,8 +25,8 @@
       "azureSecurityCentertemplate_globalworkspaceSubscriptionID": {
         "type": "string",
         "metadata": {
-          "displayName": "Subscription ID of Central Workspace (Azure Security Center Configuration)",
-          "description": "Subscription ID where the central Log Analytics workspace is hosted"
+          "displayName": "Subscription ID of Workspace (Azure Security Center and Activity Logs Configuration)",
+          "description": "Subscription ID where the Log Analytics workspace is hosted"
         },
         "defaultValue": "00000000-0000-0000-0000-000000000000",
         "allowedValues": []
