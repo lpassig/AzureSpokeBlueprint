@@ -76,7 +76,8 @@ This blueprint allows a zero touch deployment of a spoke environment. THe bluepr
    ```Expand-Archive -Path AzureSpokeBlueprint-master.zip -DestinationPath AzureSpokeBlueprint -force```</p>
 4. Change directory into the created folder:</p>
    ```cd ./AzureSpokeBlueprint/AzureSpokeBlueprint-master```</p>
-5. Import the blueprint into your management group:</p>
+5. If it isn't already installed, follow the instructions in [Add the Az.Blueprint module](https://docs.microsoft.com/de-de/azure/governance/blueprints/how-to/manage-assignments-ps#add-the-azblueprint-module) to install and validate the ```Az.Blueprint``` module from the PowerShell Gallery.</p>
+6. Import the blueprint into your management group:</p>
    ```Import-AzBlueprintWithArtifact -Name 'Azure_Spoke_Blueprint' -ManagementGroupId 'xxxxxxxxx-xxxx-xxxxx-xxx-xxxxx-xxxxx' -InputPath ./Azure_Spoke_Blueprint```</p>
  
 ## How do I assign the blueprint? 
