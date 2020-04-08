@@ -89,7 +89,7 @@ This blueprint allows a zero touch deployment of a spoke environment. THe bluepr
    </p>
    Note: Change the first field "Subscription" accordingly (if needed)</p>
 5. Fill in the central ```Blueprint Parameter``` as needed. These parameters are used by multiple artifacts to and are therefore "Global Parameters": </p>
-   ![Assign Demo2](media/Assignment2.JPG)
+   ![Assign Demo2](media/Parameter.JPG)
 6. Fill in the ```Artifact Parameter``` as needed. See the naming pattern below:</p>
 - Log Analytics Workspace: ```CompanyPrefix```-core-001-log
 - Diagnostics Storage Account: ```CompanyPrefix```core001diag
